@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b1220">
+<meta name="description" content="Aev0rnGen — ブラウザ内で安全なランダムパスワードを生成。">
+<title>Aev0rnGen — パスワード生成</title>
+<style>
+:root{color-scheme:dark;--bg:#080e1b;--panel:#101a2b;--panel2:#142139;--line:#273954;--text:#eef4ff;--muted:#9aabc5;--blue:#60a5fa;--blue2:#3b82f6;--green:#6ee7b7;--amber:#fbbf24;--red:#fda4af}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at 50% -15%,#1c3762 0,transparent 52%),var(--bg);color:var(--text);font:15px/1.55 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{width:min(780px,calc(100% - 28px));margin:0 auto;padding:34px 0 48px}
+header{text-align:center;margin-bottom:26px}.brand{display:flex;justify-content:center;align-items:center;gap:12px;margin-bottom:12px}.logo{width:52px;height:52px;display:grid;place-items:center;border:1px solid #365987;border-radius:16px;background:linear-gradient(145deg,#1b3760,#11213b);box-shadow:0 8px 28px #2563eb22}.logo svg{width:29px;height:29px;color:var(--blue)}h1{margin:0;font-size:clamp(28px,5vw,38px);letter-spacing:-.045em;font-weight:800}.subtitle{margin:8px 0 0;color:var(--muted)}.eyebrow{font-size:11px;letter-spacing:.18em;color:#93c5fd;text-transform:uppercase;font-weight:750}
+.card{margin:14px 0;padding:22px;background:linear-gradient(155deg,#121e32f5,#0f1929f5);border:1px solid var(--line);border-radius:18px;box-shadow:0 14px 40px #0002}h2{margin:0 0 16px;font-size:17px;letter-spacing:-.01em}.step{color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.1em;margin-right:7px}
+.labelrow{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:8px}output{color:var(--blue);font-size:21px;font-weight:800;font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--blue)}.rangeends{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}label.check{display:flex;gap:10px;align-items:flex-start;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;transition:border-color .15s,background .15s}label.check:has(input:checked){border-color:#426ca8;background:#172945}input[type=checkbox]{accent-color:var(--blue);width:17px;height:17px;margin:3px 0 0;flex-shrink:0}.check strong{display:block;font-size:14px}.check small{display:block;color:var(--muted);font-size:12px;margin-top:2px}
+.field{margin-top:15px}.field>label:not(.check){display:block;font-size:13px;font-weight:700;margin-bottom:7px}input[type=text],select{width:100%;border:1px solid var(--line);border-radius:10px;background:#0a1322;color:var(--text);padding:11px 12px;font:inherit}input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid #93c5fd;outline-offset:2px}
+.result{background:#080f1c;border:1px solid #2e4c75;border-radius:14px;padding:15px}.password{overflow-wrap:anywhere;word-break:break-all;font:600 18px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;min-height:32px}.resulttop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:8px}.resulttop span{font-size:11px;letter-spacing:.1em;color:var(--muted);font-weight:750}.resulttop svg{width:18px;height:18px;color:var(--blue)}
+.meter{height:6px;background:#25344b;border-radius:99px;overflow:hidden;margin-top:12px}.meter>div{height:100%;width:0;background:var(--green);transition:width .2s}.status{margin:9px 0 0;color:var(--muted);font-size:12px;min-height:19px}.status.good{color:var(--green)}.status.warn{color:var(--amber)}.status.bad{color:var(--red)}
+.actions{display:flex;gap:10px;margin-top:13px}button{cursor:pointer;border:1px solid #344966;border-radius:11px;padding:11px 15px;font:750 14px system-ui,sans-serif;color:var(--text);background:#1a2b45;transition:transform .12s,filter .12s,border-color .12s}button:hover{filter:brightness(1.15)}button:active{transform:translateY(1px)}button.primary{background:linear-gradient(135deg,#60a5fa,#3b82f6);color:#071326;border-color:transparent}.actions button{flex:1}button:disabled{opacity:.45;cursor:not-allowed}
+.note{color:var(--muted);font-size:12px}.historytop{display:flex;justify-content:space-between;align-items:center;gap:12px}.historytop h2{margin:0}.count{font-size:12px;color:var(--muted)}.historylist{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}.pill{border:1px solid var(--line);border-radius:99px;padding:5px 9px;font-size:12px;color:var(--muted)}details{margin-top:13px}summary{cursor:pointer;color:#93c5fd;font-weight:700;font-size:13px}footer{text-align:center;color:#71839e;font-size:12px;padding:16px 10px 0}.privacy{display:flex;align-items:flex-start;gap:10px}.privacy svg{width:21px;height:21px;flex-shrink:0;color:var(--green);margin-top:2px}
+@media(max-width:520px){main{padding-top:24px}.card{padding:17px}.checks{grid-template-columns:1fr}.actions{flex-direction:column}.brand{gap:9px}}
+</style>
+</head>
+<body>
+<main>
+<header>
+<div class="brand">
+<div class="logo" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><rect x="9" y="10" width="6" height="5" rx="1"/><path d="M10 10V8a2 2 0 0 1 4 0v2"/></svg></div>
+<div style="text-align:left"><div class="eyebrow">Private by design</div><h1>Aev0rnGen</h1></div>
+</div>
+<p class="subtitle">安全なパスワードを、あなたのブラウザで。</p>
+</header>
+
+<section class="card" aria-labelledby="lengthTitle">
+<h2 id="lengthTitle"><span class="step">01</span>パスワードの長さ</h2>
+<div class="labelrow"><label for="length">文字数</label><output id="lengthOut" for="length">20文字</output></div>
+<input id="length" type="range" min="4" max="128" value="20">
+<div class="rangeends"><span>4文字</span><span>128文字</span></div>
+</section>
+
+<section class="card" aria-labelledby="charsTitle">
+<h2 id="charsTitle"><span class="step">02</span>使用する文字</h2>
+<div class="checks">
+<label class="check"><input id="upper" type="checkbox" checked><span><strong>英大文字</strong><small>ABCDEFGHIJKLMNOPQRSTUVWXYZ</small></span></label>
+<label class="check"><input id="lower" type="checkbox" checked><span><strong>英小文字</strong><small>abcdefghijklmnopqrstuvwxyz</small></span></label>
+<label class="check"><input id="numbers" type="checkbox" checked><span><strong>数字</strong><small>0123456789</small></span></label>
+<label class="check"><input id="symbols" type="checkbox" checked><span><strong>記号</strong><small>! @ # $ % など</small></span></label>
+</div>
+<div class="field"><label for="symbolSet">使用する記号</label><input id="symbolSet" type="text" value="!@#$%^&amp;*()-_=+[]{};:,.?" autocomplete="off" spellcheck="false"></div>
+<div class="field"><label class="check"><input id="exclude" type="checkbox"><span><strong>紛らわしい文字を除外</strong><small>0、O、1、l、I などを候補から除きます。</small></span></label></div>
+<div class="field"><label class="check"><input id="requireEach" type="checkbox" checked><span><strong>選択した各種類を最低1文字含める</strong><small>ONにした文字種類をそれぞれ1文字以上含めます。</small></span></label></div>
+</section>
+
+<section class="card" aria-labelledby="similarTitle">
+<h2 id="similarTitle"><span class="step">03</span>重複・類似の防止</h2>
+<div class="field" style="margin-top:0"><label for="similarity">類似判定の厳しさ</label><select id="similarity">
+<option value="0.75">標準 — 同じ位置の文字が75%以上一致する候補を除外</option>
+<option value="0.6">強め — 同じ位置の文字が60%以上一致する候補を除外</option>
+<option value="0.9">弱め — 同じ位置の文字が90%以上一致する候補を除外</option>
+<option value="exact">完全一致だけを除外</option>
+</select></div>
+<p class="note">類似判定は同じ文字数のパスワード同士で行います。文字数が違っても完全一致は防止します。</p>
+</section>
+
+<section class="card" aria-labelledby="resultTitle">
+<h2 id="resultTitle"><span class="step">04</span>生成されたパスワード</h2>
+<div class="result">
+<div class="resulttop"><span>GENERATED PASSWORD</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg></div>
+<div class="password" id="password" aria-live="polite">生成ボタンを押してください</div>
+<div class="meter" aria-hidden="true"><div id="meterFill"></div></div>
+<div class="status" id="strength">まだ生成されていません。</div>
+<div class="actions"><button class="primary" id="generate">↻ パスワードを生成</button><button id="copy" disabled>▢ コピー</button></div>
+</div>
+<p class="status" id="message" role="status" aria-live="polite"></p>
+</section>
+
+<section class="card" aria-labelledby="historyTitle">
+<div class="historytop"><h2 id="historyTitle">このページでの生成履歴</h2><span class="count" id="historyCount">0件</span></div>
+<p class="note">履歴はこのページを開いている間だけメモリに保持します。パスワードそのものは一覧に表示しません。再読み込み・ページを閉じると消去されます。</p>
+<div class="historylist" id="historyList"><span class="pill">履歴なし</span></div>
+<div class="actions"><button id="clearHistory">履歴をリセット</button></div>
+</section>
+
+<section class="card">
+<div class="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z"/><path d="m9 12 2 2 4-4"/></svg><div><h2 style="margin:0 0 6px">プライバシーを大切に</h2><p class="note" style="margin:0">パスワード生成にはブラウザの <code>crypto.getRandomValues()</code> を使用します。パスワードを送信・保存するサーバー処理、アカウント登録、分析用トラッキングはありません。</p></div></div>
+<details><summary>乱数と類似防止について</summary><p class="note">生成候補は暗号学的に安全な乱数から作成します。過去の結果と似た候補を除外するため、履歴が増えるほど候補の選ばれ方に制約が加わります。条件に合う候補が見つからない場合は、無限に試行せずエラーを表示します。</p></details>
+</section>
+<footer>Aev0rnGen · ブラウザ内で動作 · 履歴はページ終了時に消去</footer>
+</main>
+<script>
+(()=>{"use strict";
+const $=id=>document.getElementById(id);
+const state={history:[],historySet:new Set(),current:null};
+const ambiguous=new Set(["0","O","o","1","l","I"]);
+const categories=[{id:"upper",chars:"ABCDEFGHIJKLMNOPQRSTUVWXYZ"},{id:"lower",chars:"abcdefghijklmnopqrstuvwxyz"},{id:"numbers",chars:"0123456789"},{id:"symbols",chars:""}];
+const MAX_ATTEMPTS=5000,MAX_HISTORY=10000;
+function secureIndex(max){if(!Number.isSafeInteger(max)||max<1)throw new Error("乱数範囲が不正です。");const range=0x100000000,limit=Math.floor(range/max)*max,buf=new Uint32Array(1);let n;do{crypto.getRandomValues(buf);n=buf[0]}while(n>=limit);return n%max}
+function shuffle(a){for(let i=a.length-1;i>0;i--){const j=secureIndex(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function getConfig(){const selected=categories.filter(c=>$(c.id).checked).map(c=>({id:c.id,chars:c.id==="symbols"?$("symbolSet").value:c.chars}));if(!selected.length)throw new Error("文字の種類を1つ以上選択してください。");let pool="";for(const cat of selected){let chars=[...new Set(cat.chars)].join("");if(cat.id==="symbols"&&!chars)throw new Error("使用する記号が空です。");if($("exclude").checked)chars=[...chars].filter(ch=>!ambiguous.has(ch)).join("");if(!chars)throw new Error("選択した文字種類に使用可能な文字がありません。");cat.chars=chars;pool+=chars}pool=[...new Set(pool)].join("");return{length:Number($("length").value),selected,pool,requireEach:$("requireEach").checked,similarity:$("similarity").value}}
+function makeCandidate(c){const chars=[];if(c.requireEach){if(c.length<c.selected.length)throw new Error("文字数が選択した文字種類の数より少ないため、各種類を含められません。文字数を増やすか設定を変更してください。");for(const cat of c.selected)chars.push(cat.chars[secureIndex(cat.chars.length)])}while(chars.length<c.length)chars.push(c.pool[secureIndex(c.pool.length)]);return shuffle(chars).join("")}
+function similarity(a,b){if(a.length!==b.length)return 0;let same=0;for(let i=0;i<a.length;i++)if(a[i]===b[i])same++;return same/a.length}
+function tooSimilar(candidate,c){if(state.historySet.has(candidate))return true;if(c.similarity==="exact")return false;const threshold=Number(c.similarity);return state.history.some(old=>old.length===candidate.length&&similarity(candidate,old)>=threshold)}
+function updateHistory(){ $("historyCount").textContent=state.history.length+"件";const list=$("historyList");list.replaceChildren();if(!state.history.length){const s=document.createElement("span");s.className="pill";s.textContent="履歴なし";list.append(s);return}for(let i=0;i<Math.min(state.history.length,12);i++){const s=document.createElement("span");s.className="pill";s.textContent="生成 "+(state.history.length-i);list.append(s)}if(state.history.length>12){const s=document.createElement("span");s.className="pill";s.textContent="ほか "+(state.history.length-12)+"件";list.append(s)}}
+function showMessage(text,kind=""){const el=$("message");el.textContent=text;el.className="status"+(kind?" "+kind:"")}
+function strength(c){const pool=c.pool.length;const bits=c.length*Math.log2(Math.max(1,pool));let label="強度の目安";if(bits<40)label="弱め — 文字数を増やすのがおすすめ";else if(bits<70)label="標準 — サービスごとに別のものを使用";else if(bits<100)label="強い";else label="非常に強い";$("strength").textContent=label+"（推定 "+Math.round(bits)+" bit）";$("meterFill").style.width=Math.min(100,bits/128*100)+"%";$("meterFill").style.background=bits<40?"var(--red)":bits<70?"var(--amber)":"var(--green)"}
+function generate(){try{if(!globalThis.crypto||!crypto.getRandomValues)throw new Error("このブラウザでは安全な乱数機能が使えません。最新のブラウザで開いてください。");const c=getConfig();let candidate=null;for(let i=0;i<MAX_ATTEMPTS;i++){const p=makeCandidate(c);if(!tooSimilar(p,c)){candidate=p;break}}if(candidate===null)throw new Error("設定した条件で新しい候補が見つかりませんでした。類似判定を弱めるか、文字数を増やしてください。");state.current=candidate;if(state.history.length>=MAX_HISTORY){const removed=state.history.pop();state.historySet.delete(removed)}state.history.unshift(candidate);state.historySet.add(candidate);$("password").textContent=candidate;$("copy").disabled=false;strength(c);updateHistory();showMessage("新しいパスワードを生成しました。","good")}catch(e){showMessage(e.message||"生成に失敗しました。","bad")}}
+$("length").addEventListener("input",()=>{$("lengthOut").textContent=$("length").value+"文字"});
+$("generate").addEventListener("click",generate);
+$("copy").addEventListener("click",async()=>{if(!state.current)return;try{if(navigator.clipboard&&navigator.clipboard.writeText)await navigator.clipboard.writeText(state.current);else{const t=document.createElement("textarea");t.value=state.current;t.style.position="fixed";t.style.opacity="0";document.body.append(t);t.select();const ok=document.execCommand("copy");t.remove();if(!ok)throw new Error("コピーできませんでした。手動で選択してください。")}showMessage("クリップボードにコピーしました。","good")}catch(e){showMessage("コピーできませんでした。HTTPSのページでお試しください。","warn")}});
+$("clearHistory").addEventListener("click",()=>{state.history=[];state.historySet.clear();updateHistory();showMessage("このページの生成履歴をリセットしました。","good")});
+})();
+</script>
+</body>
+</html>
