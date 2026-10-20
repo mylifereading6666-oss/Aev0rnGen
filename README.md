@@ -4,8 +4,6 @@
 
 ## 公開サイト
 
-GitHub Pages の設定後、サイトURLは通常次の形式になります。
-
 https://mylifereading6666-oss.github.io/Aev0rnGen/
 
 ## 使い方
@@ -51,9 +49,5 @@ https://mylifereading6666-oss.github.io/Aev0rnGen/
 Aev0rnGen は **MIT License** の下で公開されています。利用・複製・改変・再配布などが可能ですが、配布物には著作権表示とライセンス文を含めてください。ソフトウェアは現状有姿で提供され、保証はありません。
 
 ライセンス全文は [LICENSE](LICENSE) を参照してください。ウェブサイト上にもライセンスを掲載しています。
-
-## GitHub Pages の有効化
-
-リポジトリの **Settings → Pages** を開き、**Build and deployment** の **Source** で **GitHub Actions** を選択してください。リポジトリにはデプロイ用ワークフローが含まれており、main ブランチへの push 後に公開処理を行います。公開完了後、上記のURLを開いてください。
 
 サイト本体は `index.html` 一つで動作します。
